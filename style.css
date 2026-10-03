@@ -1,0 +1,298 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    background: linear-gradient(hsl(303, 100%, 7%), hsl(271, 100%, 20%));
+    min-height: 200vh;
+    font-family: system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: max(1rem, env(safe-area-inset-top)) max(2rem, env(safe-area-inset-right)) 1rem max(2rem, env(safe-area-inset-left));
+    gap: 1rem;
+}
+
+header .logo {
+    text-transform: uppercase;
+    font-size: clamp(1.25rem, 3vw, 1.875rem);
+    white-space: nowrap;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 300;
+    min-width: 44px;
+    min-height: 44px;
+    touch-action: manipulation;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
+header ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+    gap: clamp(0.5rem, 2vw, 1.875rem);
+    flex-wrap: wrap;
+}
+
+header ul li a {
+    padding: clamp(0.5rem, 1.5vw, 0.9375rem);
+    border-radius: 20px;
+    transition: 0.5s;
+    font-weight: 500;
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    white-space: nowrap;
+}
+
+header ul li a:hover,
+header ul li a.active {
+    background-color: white;
+    color: hsl(271, 100%, 20%);
+}
+
+.main {
+    position: relative;
+    height: 100vh;
+    height: 100dvh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.main::after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    height: clamp(60px, 12vw, 120px);
+    width: 100%;
+    background: linear-gradient(to bottom, hsl(303, 100%, 7%), transparent);
+    z-index: 10;
+}
+
+.main img {
+    position: absolute;
+    width: 100%;
+    max-width: none;
+    height: 100vh;
+    height: 100dvh;
+    object-fit: cover;
+    object-position: center bottom;
+    pointer-events: none;
+    user-select: none;
+}
+
+#moon {
+    mix-blend-mode: screen;
+    transform: translateY(clamp(40px, 8vw, 80px));
+}
+
+.nulsel {
+    color: white;
+    text-transform: uppercase;
+    font-size: clamp(16px, 4vw, 20px);
+    transform: translateY(clamp(-80px, -12vw, -150px));
+    position: relative;
+    z-index: 1;
+}
+
+.content {
+    padding: clamp(1rem, 4vw, 2.5rem);
+    padding-left: max(clamp(1rem, 4vw, 2.5rem), env(safe-area-inset-left));
+    padding-right: max(clamp(1rem, 4vw, 2.5rem), env(safe-area-inset-right));
+    padding-bottom: max(clamp(1rem, 4vw, 2.5rem), env(safe-area-inset-bottom));
+    color: white;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.content h2 {
+    font-size: clamp(1.25rem, 4vw, 1.875rem);
+    margin-bottom: 1.25rem;
+}
+
+.content p {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+}
+
+/* Laptop / small desktop — keep nav in one row */
+@media (max-width: 1024px) and (min-width: 769px) {
+    header {
+        padding-left: max(1.25rem, env(safe-area-inset-left));
+        padding-right: max(1.25rem, env(safe-area-inset-right));
+    }
+
+    header ul {
+        flex-wrap: nowrap;
+        gap: 0.35rem;
+    }
+
+    header ul li a {
+        padding: 0.5rem 0.65rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Tablet and below */
+@media (max-width: 768px) {
+    header {
+        padding: max(0.75rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right)) 0.75rem max(1.25rem, env(safe-area-inset-left));
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: min(280px, 80vw);
+        height: 100vh;
+        height: 100dvh;
+        max-height: 100dvh;
+        background: hsla(271, 100%, 15%, 0.97);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.3s ease;
+        z-index: 250;
+        overflow-y: auto;
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-menu.open {
+        right: 0;
+    }
+
+    header ul {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 0.5rem;
+        width: 100%;
+        padding: 2rem;
+    }
+
+    header ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    header ul li a {
+        display: block;
+        width: 100%;
+        padding: 0.875rem 1rem;
+        min-height: 44px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    header {
+        padding: max(0.75rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) 0.75rem max(1rem, env(safe-area-inset-left));
+    }
+
+    .content {
+        padding: 1rem;
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+
+    #moon {
+        transform: translateY(clamp(25px, 6vw, 40px));
+    }
+
+    .nulsel {
+        transform: translateY(clamp(-50px, -10vw, -80px));
+    }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+    header .logo {
+        font-size: 1.1rem;
+    }
+
+    .nav-menu {
+        width: 100%;
+    }
+}
+
+/* Phone landscape / short screens */
+@media (max-height: 500px) and (orientation: landscape) {
+    .nav-menu {
+        align-items: flex-start;
+        padding-top: max(3.5rem, env(safe-area-inset-top));
+    }
+
+    .nulsel {
+        transform: translateY(clamp(-30px, -8vh, -50px));
+    }
+
+    .main::after {
+        height: 50px;
+    }
+}
